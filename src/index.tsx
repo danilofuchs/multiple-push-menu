@@ -1,5 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
+import Query from "react-responsive";
 import { Provider, Subscribe, Container } from "unstated";
 
 import Sidebar from "./Sidebar";
@@ -184,11 +185,13 @@ function App() {
               isOpen={isOpen(layout.state.leftSidebar, "details")}
               left={layout.state.leftSidebar.left}
             />
+
             <Menu
               width={menuConfig.width}
               isOpen={layout.state.isMenuOpen}
               left={layout.state.menuLeft}
             />
+
             <Profile
               width={sidebars.profile.width}
               isOpen={isOpen(layout.state.rightSidebar, "profile")}

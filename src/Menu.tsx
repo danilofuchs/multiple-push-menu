@@ -5,6 +5,7 @@ interface Props {
   width: number;
   isOpen: boolean;
   left: number;
+  onClose: () => void;
 }
 function Menu(props: Props) {
   return (
@@ -21,6 +22,7 @@ function Menu(props: Props) {
             left: isMobile ? (props.isOpen ? 0 : "-100vw") : props.left,
             zIndex: 2
           }}
+          onClick={props.onClose}
         />
       )}
     </Query>

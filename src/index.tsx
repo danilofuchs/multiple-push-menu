@@ -20,6 +20,7 @@ function App() {
                 width={menuConfig.width}
                 isOpen={layout.state.isMenuOpen}
                 left={layout.state.menuLeft}
+                onClose={() => layout.toggleMenu(false)}
               />
             </Sidebar>
             <Sidebar>
@@ -27,6 +28,7 @@ function App() {
                 width={sidebarsConfig.profile.width}
                 isOpen={isOpen(layout.state.rightSidebar, "profile")}
                 right={layout.state.rightSidebar.right}
+                onClose={() => layout.toggleRightSidebar("profile", false)}
               />
             </Sidebar>
 
@@ -47,6 +49,7 @@ function App() {
                   width={sidebarsConfig.details.width}
                   isOpen={isOpen(layout.state.leftSidebar, "details")}
                   left={layout.state.leftSidebar.left}
+                  onClose={() => layout.toggleLeftSidebar("details", false)}
                 />
               </Sidebar>
 

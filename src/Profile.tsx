@@ -5,6 +5,7 @@ interface Props {
   width: number;
   right: number;
   isOpen: boolean;
+  onClose: () => void;
 }
 function Profile(props: Props) {
   const { width, isOpen } = props;
@@ -28,6 +29,7 @@ function Profile(props: Props) {
               ? props.right
               : -props.width
           }}
+          onClick={props.onClose}
         />
       )}
     </Query>

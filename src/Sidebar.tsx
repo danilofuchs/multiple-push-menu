@@ -1,20 +1,28 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+const appElement = document.getElementById("app");
+interface Props {
+  children: React.ReactNode;
+}
 class Sidebar extends React.Component {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
   }
 
   element = document.createElement("div");
 
   componentDidMount() {
-    const pageElement = document.getElementById("page-container");
-    pageElement.appendChild(this.element);
+    const pageElement = document.getElementById("app-container");
+    if (pageElement) {
+      pageElement.insertBefore(this.element, pageElement.firstChild);
+    }
   }
   componentWillUnmount() {
-    const pageElement = document.getElementById("page-container");
-    pageElement.removeChild(this.element);
+    const pageElement = document.getElementById("app-container");
+    if (pageElement) {
+      pageElement.removeChild(this.element);
+    }
   }
 
   render() {

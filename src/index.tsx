@@ -147,6 +147,7 @@ class LayoutContainer extends Container<LayoutState> {
 
   private closeLeft() {
     if (
+      this.state.leftSidebar.key &&
       sidebars[this.state.leftSidebar.key] &&
       this.state.leftSidebar.isOpen === true
     ) {
@@ -155,6 +156,7 @@ class LayoutContainer extends Container<LayoutState> {
   }
   private closeRight() {
     if (
+      this.state.rightSidebar.key &&
       sidebars[this.state.rightSidebar.key] &&
       this.state.rightSidebar.isOpen === true
     ) {
@@ -179,24 +181,22 @@ function App() {
     <Subscribe to={[LayoutContainer]}>
       {(layout: LayoutContainer) => (
         <>
-          <div className="app" style={{ position: "fixed" }}>
-            <Details
-              width={sidebars.details.width}
-              isOpen={isOpen(layout.state.leftSidebar, "details")}
-              left={layout.state.leftSidebar.left}
-            />
+          <div className="app" id="app-container" style={{ position: "fixed" }}>
+            <Sidebar>
+              <Menu
+                width={menuConfig.width}
+                isOpen={layout.state.isMenuOpen}
+                left={layout.state.menuLeft}
+              />
+            </Sidebar>
+            <Sidebar>
+              <Profile
+                width={sidebars.profile.width}
+                isOpen={isOpen(layout.state.rightSidebar, "profile")}
+                right={layout.state.rightSidebar.right}
+              />
+            </Sidebar>
 
-            <Menu
-              width={menuConfig.width}
-              isOpen={layout.state.isMenuOpen}
-              left={layout.state.menuLeft}
-            />
-
-            <Profile
-              width={sidebars.profile.width}
-              isOpen={isOpen(layout.state.rightSidebar, "profile")}
-              right={layout.state.rightSidebar.right}
-            />
             <div
               className="page"
               id="page-container"
@@ -209,14 +209,13 @@ function App() {
                 background: "blue"
               }}
             >
-              {/*
-                <Sidebar>
-  
-              </Sidebar>
               <Sidebar>
-
+                <Details
+                  width={sidebars.details.width}
+                  isOpen={isOpen(layout.state.leftSidebar, "details")}
+                  left={layout.state.leftSidebar.left}
+                />
               </Sidebar>
-                */}
 
               <button
                 onClick={() => layout.toggleMenu(!layout.state.isMenuOpen)}
@@ -255,8 +254,15 @@ function App() {
   );
 }
 
-const isOpen = (sidebarState: { key: string; isOpen: boolean }, key: string) =>
-  sidebarState.key === key && sidebarState.isOpen;
+const isOpen = (
+  sidebarState: {
+    key: string | null;
+    isOpen: boolean;
+    right?: number;
+    left?: number;
+  },
+  key: string
+) => sidebarState.key === key && sidebarState.isOpen;
 
 render(
   <Provider>

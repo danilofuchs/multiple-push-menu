@@ -11,7 +11,6 @@ function Menu(props: Props) {
     <Query maxWidth={768}>
       {isMobile => (
         <div
-          className={isMobile ? "aaa" : "bbb"}
           id="menu"
           style={{
             transition: "all 500ms linear",
@@ -19,7 +18,7 @@ function Menu(props: Props) {
             height: "100vh",
             width: isMobile ? "100vw" : props.width,
             position: "absolute",
-            left: isMobile && props.isOpen ? 0 : props.left,
+            left: isMobile ? (props.isOpen ? 0 : "-100vw") : props.left,
             zIndex: 2
           }}
         />
